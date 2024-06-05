@@ -21,7 +21,9 @@ const gameBoard = function GameBoard() {
   const getBoard = () => board;
 
   const placeMarker = (row, column, token) => {
-    board[row][column] = token;
+    if (board[row][column] === "-") {
+      board[row][column] = token;
+    }
   }
 
   const printBoard = () => {
