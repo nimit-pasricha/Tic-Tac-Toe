@@ -1,4 +1,4 @@
-const gameBoard = (function GameBoard() {
+const gameBoard = function GameBoard() {
   const rows = 3;
   const columns = 3;
   const board = [];
@@ -14,7 +14,7 @@ const gameBoard = (function GameBoard() {
   for (let i = 0; i < rows; i++) {
     board.push([]);
     for (let j = 0; j < columns; j++) {
-      board[i][j] = "";
+      board[i][j] = "-";
     }
   }
 
@@ -24,12 +24,26 @@ const gameBoard = (function GameBoard() {
     board[row][column] = token;
   }
 
-  return {board, getBoard, placeMarker};
-})();
+  const printBoard = () => {
+    console.log(board[0][0] + " " + board[0][1] + " " + board[0][2] + "\n"
+      + board[1][0] + " " + board[1][1] + " " + board[1][2] + "\n"
+      + board[2][0] + " " + board[2][1] + " " + board[2][2]
+    );
+  }
+
+  return {board, getBoard, placeMarker, printBoard};
+}();
 
 const playerTokens = {
   player1: "X",
   player2: "O"
 }
 
+const gameController = (function() {
+  let currentTurn = "player1";
 
+  const board = gameBoard();
+
+  
+
+})
