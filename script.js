@@ -28,7 +28,7 @@ const gameBoard = function GameBoard() {
     }
   }
 
-  // PURELY FOR TESTING PURPOSES
+  // PURELY FOR TESTING PURPOSES IN CONSOLE
   const printBoard = () => {
     console.log(board[0][0] + " " + board[0][1] + " " + board[0][2] + "\n"
       + board[1][0] + " " + board[1][1] + " " + board[1][2] + "\n"
@@ -69,6 +69,7 @@ const gameController = (function() {
   const currentBoard = board.getBoard();
 
     // check for winning conditions
+    // returns nothing (undefined) if no one has won yet
   function checkForVictory() {
 
     // check if any row has three consecutive symbols
@@ -102,11 +103,8 @@ const gameController = (function() {
       if (currentBoard[0][2] === "X") return "Player 1 Wins";
       if (currentBoard[0][2] === "O") return "Player 2 Wins";
     }
-
-    // TODO: END THE GAME WHEN VICTORY IS ACHEIEVED
   }
   
-
   return {playRound}
 
 }())
