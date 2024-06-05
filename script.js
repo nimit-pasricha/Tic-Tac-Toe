@@ -61,10 +61,10 @@ const gameController = (function() {
   const allEqual = (arr) => arr.every(v => v === arr[0]);
   const currentBoard = board.getBoard();
 
-    // checking for winning conditions
+    // check for winning conditions
   function checkForVictory() {
 
-    // checking if any row has three consecutive symbols
+    // check if any row has three consecutive symbols
     for (let i of currentBoard) {
       if (allEqual(i)) {
         if (i[0] === "X") return "Player 1 Wins";
@@ -72,7 +72,7 @@ const gameController = (function() {
       }
     }
 
-    // checking if any of the columns have 3 consecutive symbols
+    // check if any of the columns have 3 consecutive symbols
     for (let i = 0; i < 3; i++) {
       if (currentBoard[0][i] === currentBoard[1][i]
         && currentBoard[1][i] === currentBoard[2][i]) {
@@ -80,6 +80,23 @@ const gameController = (function() {
           if (currentBoard[0][i] === "O") return "Player 2 Wins";
       }
     }
+
+    // Check for matching diagonals
+    if (currentBoard[0][0] === currentBoard[1][1]
+      && currentBoard[1][1] === currentBoard[2][2]
+    ) {
+      if (currentBoard[0][0] === "X") return "Player 1 Wins";
+      if (currentBoard[0][0] === "O") return "Player 2 Wins";
+    }
+
+    if (currentBoard[0][2] === currentBoard[1][1]
+      && currentBoard[1][1] === currentBoard[2][0]
+    ) {
+      if (currentBoard[0][2] === "X") return "Player 1 Wins";
+      if (currentBoard[0][2] === "O") return "Player 2 Wins";
+    }
+
+    // TODO: END THE GAME WHEN VICTORY IS ACHEIEVED
   }
   
 
