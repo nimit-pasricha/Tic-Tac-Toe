@@ -21,11 +21,14 @@ const gameBoard = function GameBoard() {
   const getBoard = () => board;
 
   const placeMarker = (row, column, token) => {
+    // condition to prevent user from selecting
+    // an already-selected slot
     if (board[row][column] === "-") {
       board[row][column] = token;
     }
   }
 
+  // PURELY FOR TESTING PURPOSES
   const printBoard = () => {
     console.log(board[0][0] + " " + board[0][1] + " " + board[0][2] + "\n"
       + board[1][0] + " " + board[1][1] + " " + board[1][2] + "\n"
@@ -47,13 +50,15 @@ const gameController = (function() {
   const board = gameBoard();
 
   const playRound = () => {
-    const rowNumber = +prompt("Enter row: ");
-    const columnNumber = +prompt("Enter column: ");
-    const markerToPlace = playerTokens[currentPlayer];
-    board.placeMarker(rowNumber, columnNumber, markerToPlace);
-    board.printBoard();
-    console.log(checkForVictory());
-    switchPlayerTurn();
+    if (checkForVictory !== undefined) {
+      const rowNumber = +prompt("Enter row: ");
+      const columnNumber = +prompt("Enter column: ");
+      const markerToPlace = playerTokens[currentPlayer];
+      board.placeMarker(rowNumber, columnNumber, markerToPlace);
+      board.printBoard();
+      console.log(checkForVictory());
+      switchPlayerTurn();
+    }
   }
 
   function switchPlayerTurn() {
