@@ -20,9 +20,20 @@ const gameBoard = (function GameBoard() {
 
   const getBoard = () => board;
 
-  const placeMarker = (row, column, player) => {
-    board[row][column] = player;
+  const placeMarker = (row, column, token) => {
+    board[row][column] = token;
   }
 
-  return {board, getBoard};
+  return {board, getBoard, placeMarker};
 })();
+
+const players = [
+  {
+    name: "player1",
+    token: "X"
+  }, 
+  {
+    name: "player2",
+    token: "O"
+  }
+]
