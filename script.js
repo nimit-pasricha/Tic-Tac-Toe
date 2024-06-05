@@ -50,6 +50,7 @@ const gameController = (function() {
     const markerToPlace = playerTokens[currentPlayer];
     board.placeMarker(rowNumber, columnNumber, markerToPlace);
     board.printBoard();
+    console.log(checkForVictory());
     switchPlayerTurn();
   }
 
@@ -57,6 +58,30 @@ const gameController = (function() {
     currentPlayer = currentPlayer === "player1" ? "player2" : "player1";
   }
 
+  const allEqual = (arr) => arr.every(v => v === arr[0]);
+  const currentBoard = board.getBoard();
+
+    // checking for winning conditions
+  function checkForVictory() {
+
+    // checking if any row has three consecutive symbols
+    for (let i of currentBoard) {
+      if (allEqual(i)) {
+        if (i[0] === "X") return "Player 1 Wins";
+        else if (i[0] === "O") return "Player 2 Wins";
+      }
+    }
+
+    // checking if any of the columns have 3 consecutive symbols
+    for (let i = 0; i < 3; i++) {
+      if (currentBoard[0][i] === currentBoard[1][i]
+        && currentBoard[1][i] === currentBoard[2][i]) {
+          if (currentBoard[0][i] === "X") return "Player 1 Wins";
+          if (currentBoard[0][i] === "O") return "Player 2 Wins";
+      }
+    }
+  }
+  
 
   return {playRound}
 
