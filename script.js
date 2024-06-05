@@ -32,18 +32,32 @@ const gameBoard = function GameBoard() {
   }
 
   return {board, getBoard, placeMarker, printBoard};
-}();
-
-const playerTokens = {
-  player1: "X",
-  player2: "O"
-}
+};
 
 const gameController = (function() {
-  let currentTurn = "player1";
+  const playerTokens = {
+    player1: "X",
+    player2: "O"
+  }
+
+  let currentPlayer = "player1";
 
   const board = gameBoard();
 
-  
+  const playRound = () => {
+    const rowNumber = +prompt("Enter row: ");
+    const columnNumber = +prompt("Enter column: ");
+    const markerToPlace = playerTokens[currentPlayer];
+    board.placeMarker(rowNumber, columnNumber, markerToPlace);
+    board.printBoard();
+    switchPlayerTurn();
+  }
 
-})
+  function switchPlayerTurn() {
+    currentPlayer = currentPlayer === "player1" ? "player2" : "player1";
+  }
+
+
+  return {playRound}
+
+}())
