@@ -27,13 +27,9 @@ const gameBoard = (function GameBoard() {
   return {board, getBoard, placeMarker};
 })();
 
-const players = [
-  {
-    name: "player1",
-    token: "X"
-  }, 
-  {
-    name: "player2",
-    token: "O"
-  }
-]
+const playerTokens = {
+  player1: "X",
+  player2: "O"
+}
+
+
