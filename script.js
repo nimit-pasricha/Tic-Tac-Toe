@@ -86,11 +86,12 @@ const gameController = function () {
   }
 
   const allEqual = (arr) => arr.every((v) => v === arr[0]);
-  const currentBoard = board.getBoard();
 
   // check for winning conditions
   // returns nothing (undefined) if no one has won yet
   function checkForVictory() {
+    const currentBoard = board.getBoard();
+
     // check if any row has three consecutive symbols
     for (let i of currentBoard) {
       if (allEqual(i)) {
@@ -175,10 +176,16 @@ const displayController = (function () {
   }
 
   function endGame() {
-    const winner = game.checkForVictory();
-    if (winner !== undefined) {
+    if (game.checkForVictory() !== undefined) {
+      const winner = game.checkForVictory();
       document.querySelector("dialog").showModal();
       document.querySelector(".victory-message").textContent = winner;
     }
   }
+
+  document.querySelector(".restart-button").addEventListener("click", () => {
+    game.restartGame();
+    document.querySelector("dialog").close();
+    clearBoardDisplay();
+  });
 })();
