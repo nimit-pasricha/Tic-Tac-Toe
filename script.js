@@ -106,5 +106,4 @@ const gameController = (function() {
   }
   
   return {playRound}
-
-}())
+}());
