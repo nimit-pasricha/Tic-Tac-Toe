@@ -39,7 +39,7 @@ const gameBoard = function GameBoard() {
   return {board, getBoard, placeMarker, printBoard};
 };
 
-const gameController = (function() {
+const gameController = function() {
   const playerTokens = {
     player1: "X",
     player2: "O"
@@ -49,12 +49,10 @@ const gameController = (function() {
 
   const board = gameBoard();
 
-  const playRound = () => {
+  const playRound = (row, column) => {
     if (checkForVictory !== undefined) {
-      const rowNumber = +prompt("Enter row: ");
-      const columnNumber = +prompt("Enter column: ");
       const markerToPlace = playerTokens[currentPlayer];
-      board.placeMarker(rowNumber, columnNumber, markerToPlace);
+      board.placeMarker(row, column, markerToPlace);
       board.printBoard();
       console.log(checkForVictory());
       switchPlayerTurn();
@@ -104,6 +102,13 @@ const gameController = (function() {
       if (currentBoard[0][2] === "O") return "Player 2 Wins";
     }
   }
+
+  const getBoard = board.getBoard;
+
   
-  return {playRound}
+  return {playRound, checkForVictory, getBoard}
+};
+
+const displayController = (function() {
+  const game = gameController();
 }());
