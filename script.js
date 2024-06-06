@@ -1,7 +1,6 @@
 const gameBoard = function GameBoard() {
   const rows = 3;
   const columns = 3;
-  const board = [];
 
   /* create a 2d array which will represent the state
      of the game.
@@ -11,12 +10,16 @@ const gameBoard = function GameBoard() {
     4 5 6
     7 8 9
   */
-  for (let i = 0; i < rows; i++) {
-    board.push([]);
-    for (let j = 0; j < columns; j++) {
-      board[i][j] = "-";
+  function createNewBoard() {
+    board = [];
+    for (let i = 0; i < rows; i++) {
+      board.push([]);
+      for (let j = 0; j < columns; j++) {
+        board[i][j] = "-";
+      }
     }
   }
+  createNewBoard();
 
   const getBoard = () => board;
 
@@ -51,7 +54,7 @@ const gameBoard = function GameBoard() {
     );
   };
 
-  return { board, getBoard, placeMarker, printBoard };
+  return { board, getBoard, placeMarker, printBoard, createNewBoard };
 };
 
 const gameController = function () {
@@ -61,8 +64,12 @@ const gameController = function () {
   };
 
   let currentPlayer = "player1";
-
   const board = gameBoard();
+
+  const restartGame = () => {
+    currentPlayer = "player1";
+    board.createNewBoard();
+  };
 
   const playRound = (row, column) => {
     if (checkForVictory !== undefined) {
@@ -123,12 +130,11 @@ const gameController = function () {
 
   const getBoard = board.getBoard;
 
-  return { playRound, checkForVictory, getBoard };
+  return { playRound, checkForVictory, getBoard, restartGame };
 };
 
 const displayController = (function () {
   const game = gameController();
-  const currentBoard = game.getBoard();
   const gameSlots = document.querySelectorAll(".game-slot");
 
   // Add the correct symbol to the correct position in the array
@@ -143,19 +149,27 @@ const displayController = (function () {
   });
 
   function displayGameBoard() {
-    for (let i = 0; i < currentBoard.length; i++) {
-      for (let j = 0; j < currentBoard[i].length; j++) {
-        if (currentBoard[i][j] !== "-") {
+    clearBoardDisplay();
+
+    for (let i = 0; i < game.getBoard().length; i++) {
+      for (let j = 0; j < game.getBoard()[i].length; j++) {
+        if (game.getBoard()[i][j] !== "-") {
           gameSlots.forEach((gameSlot) => {
             if (
               +gameSlot.getAttribute("data-row") === i &&
               +gameSlot.getAttribute("data-column") === j
             ) {
-              gameSlot.textContent = currentBoard[i][j];
+              gameSlot.textContent = game.getBoard()[i][j];
             }
           });
         }
       }
     }
+  }
+
+  function clearBoardDisplay() {
+    gameSlots.forEach((gameSlot) => {
+      gameSlot.textContent = "";
+    });
   }
 })();
