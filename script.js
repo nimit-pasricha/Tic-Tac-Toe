@@ -130,7 +130,7 @@ const gameController = function () {
 
   const getBoard = board.getBoard;
 
-  return { playRound, checkForVictory, getBoard, restartGame };
+  return { playRound, checkForVictory: checkForVictory, getBoard, restartGame };
 };
 
 const displayController = (function () {
@@ -145,6 +145,7 @@ const displayController = (function () {
       const column = gameSlot.getAttribute("data-column");
       game.playRound(row, column);
       displayGameBoard();
+      endGame();
     });
   });
 
@@ -171,5 +172,13 @@ const displayController = (function () {
     gameSlots.forEach((gameSlot) => {
       gameSlot.textContent = "";
     });
+  }
+
+  function endGame() {
+    const winner = game.checkForVictory();
+    if (winner !== undefined) {
+      document.querySelector("dialog").showModal();
+      document.querySelector(".victory-message").textContent = winner;
+    }
   }
 })();
