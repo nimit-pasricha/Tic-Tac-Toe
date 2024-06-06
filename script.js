@@ -111,4 +111,13 @@ const gameController = function() {
 
 const displayController = (function() {
   const game = gameController();
+
+  const gameSlots = document.querySelectorAll(".game-slot");
+  gameSlots.forEach(gameSlot => {
+    gameSlot.addEventListener("click", () => {
+      const row = gameSlot.getAttribute("data-row");
+      const column = gameSlot.getAttribute("data-column");
+      game.playRound(row, column);
+    });
+  })
 }());
