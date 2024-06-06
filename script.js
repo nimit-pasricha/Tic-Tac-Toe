@@ -131,6 +131,17 @@ const displayController = (function () {
   const currentBoard = game.getBoard();
   const gameSlots = document.querySelectorAll(".game-slot");
 
+  // Add the correct symbol to the correct position in the array
+  // based on which square is clicked and whose turn it is
+  gameSlots.forEach((gameSlot) => {
+    gameSlot.addEventListener("click", () => {
+      const row = gameSlot.getAttribute("data-row");
+      const column = gameSlot.getAttribute("data-column");
+      game.playRound(row, column);
+      displayGameBoard();
+    });
+  });
+
   function displayGameBoard() {
     for (let i = 0; i < currentBoard.length; i++) {
       for (let j = 0; j < currentBoard[i].length; j++) {
@@ -147,15 +158,4 @@ const displayController = (function () {
       }
     }
   }
-
-  // Add the correct symbol to the correct position in the array
-  // based on which square is clicked and whose turn it is
-  gameSlots.forEach((gameSlot) => {
-    gameSlot.addEventListener("click", () => {
-      const row = gameSlot.getAttribute("data-row");
-      const column = gameSlot.getAttribute("data-column");
-      game.playRound(row, column);
-      displayGameBoard();
-    });
-  });
 })();
