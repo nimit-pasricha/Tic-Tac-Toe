@@ -131,12 +131,13 @@ const gameController = function () {
 
   const getBoard = board.getBoard;
 
-  return { playRound, checkForVictory: checkForVictory, getBoard, restartGame };
+  return { playRound, checkForVictory, getBoard, restartGame };
 };
 
 const displayController = (function () {
   const game = gameController();
   const gameSlots = document.querySelectorAll(".game-slot");
+  const restartMessage = document.querySelector(".restart-message");
 
   // Add the correct symbol to the correct position in the array
   // based on which square is clicked and whose turn it is
@@ -170,6 +171,7 @@ const displayController = (function () {
   }
 
   function clearBoardDisplay() {
+    restartMessage.textContent = "";
     gameSlots.forEach((gameSlot) => {
       gameSlot.textContent = "";
     });
@@ -180,12 +182,23 @@ const displayController = (function () {
       const winner = game.checkForVictory();
       document.querySelector("dialog").showModal();
       document.querySelector(".victory-message").textContent = winner;
+      game.restartGame();
     }
   }
 
   document.querySelector(".restart-button").addEventListener("click", () => {
-    game.restartGame();
     document.querySelector("dialog").close();
     clearBoardDisplay();
   });
+
+  document
+    .querySelector(".close-dialog-button")
+    .addEventListener("click", () => {
+      document.querySelector("dialog").close();
+      restartMessage.textContent = "Click any square to restart";
+    });
+
+  // TODO: RECREATE THIS ERROR
+  // CREATE AN X, CLICK ON THIS X.
+  // now, click on a different square and it creates a new X instead of O
 })();
