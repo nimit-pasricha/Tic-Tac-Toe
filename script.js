@@ -221,6 +221,12 @@ const displayController = (function () {
       restartMessage.textContent = "Click any slot to restart";
     });
 
+  document.querySelector("dialog").addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      restartMessage.textContent = "Click any slot to restart";
+    }
+  });
+
   // TODO: RECREATE THIS ERROR
   // CREATE AN X, CLICK ON THIS X.
   // now, click on a different square and it creates a new X instead of O
