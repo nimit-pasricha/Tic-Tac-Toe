@@ -74,6 +74,16 @@ const gameController = function () {
     player2: "O",
   };
 
+  const playerNames = {
+    player1: null,
+    player2: null,
+  };
+
+  // set names bruh
+  const setPlayerName = (name, whichPlayer) => {
+    playerNames[whichPlayer] = name;
+  };
+
   let currentPlayer = "player1";
   const board = gameBoard();
 
@@ -107,8 +117,8 @@ const gameController = function () {
     // check if any row has three consecutive symbols
     for (let i of currentBoard) {
       if (allEqual(i)) {
-        if (i[0] === "X") return "Player 1 Wins";
-        else if (i[0] === "O") return "Player 2 Wins";
+        if (i[0] === "X") return `${playerNames.player1} Wins`;
+        else if (i[0] === "O") return `${playerNames.player2} Wins`;
       }
     }
 
@@ -118,8 +128,8 @@ const gameController = function () {
         currentBoard[0][i] === currentBoard[1][i] &&
         currentBoard[1][i] === currentBoard[2][i]
       ) {
-        if (currentBoard[0][i] === "X") return "Player 1 Wins";
-        if (currentBoard[0][i] === "O") return "Player 2 Wins";
+        if (currentBoard[0][i] === "X") return `${playerNames.player1} Wins`;
+        if (currentBoard[0][i] === "O") return `${playerNames.player2} Wins`;
       }
     }
 
@@ -128,16 +138,16 @@ const gameController = function () {
       currentBoard[0][0] === currentBoard[1][1] &&
       currentBoard[1][1] === currentBoard[2][2]
     ) {
-      if (currentBoard[0][0] === "X") return "Player 1 Wins";
-      if (currentBoard[0][0] === "O") return "Player 2 Wins";
+      if (currentBoard[0][0] === "X") return `${playerNames.player1} Wins`;
+      if (currentBoard[0][0] === "O") return `${playerNames.player2} Wins`;
     }
 
     if (
       currentBoard[0][2] === currentBoard[1][1] &&
       currentBoard[1][1] === currentBoard[2][0]
     ) {
-      if (currentBoard[0][2] === "X") return "Player 1 Wins";
-      if (currentBoard[0][2] === "O") return "Player 2 Wins";
+      if (currentBoard[0][2] === "X") return `${playerNames.player1} Wins`;
+      if (currentBoard[0][2] === "O") return `${playerNames.player2} Wins`;
     }
 
     // check for tie
@@ -154,6 +164,7 @@ const gameController = function () {
     getBoard,
     restartGame,
     getBoard,
+    setPlayerName,
   };
 };
 
@@ -196,6 +207,7 @@ const displayController = (function () {
 
   function clearBoardDisplay() {
     alwaysRestartButton.style.visibility = "visible";
+    alwaysRestartButton.style.position = "static";
     restartMessage.textContent = "";
     gameSlots.forEach((gameSlot) => {
       gameSlot.textContent = "";
@@ -230,6 +242,7 @@ const displayController = (function () {
       document.querySelector(".game-end-message").close();
       restartMessage.textContent = "Click any slot to restart";
       alwaysRestartButton.style.visibility = "hidden";
+      alwaysRestartButton.style.position = "absolute";
     });
 
   document
@@ -238,6 +251,7 @@ const displayController = (function () {
       if (event.key === "Escape") {
         restartMessage.textContent = "Click any slot to restart";
         alwaysRestartButton.style.visibility = "hidden";
+        alwaysRestartButton.style.position = "absolute";
       }
     });
 
@@ -250,8 +264,14 @@ const displayController = (function () {
     if (event.key === "Escape") event.preventDefault();
   });
 
-  document.querySelector(".subit-button").addEventListener("click", (event) => {
-    event.preventDefault();
-    playerInfo.close();
-  });
+  document
+    .querySelector(".submit-button")
+    .addEventListener("click", (event) => {
+      event.preventDefault();
+      playerInfo.close();
+      const player1Name = document.querySelector("#player-1-name").value;
+      const player2Name = document.querySelector("#player-2-name").value;
+      game.setPlayerName(player1Name, "player1");
+      game.setPlayerName(player2Name, "player2");
+    });
 })();
