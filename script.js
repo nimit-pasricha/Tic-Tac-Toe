@@ -157,6 +157,9 @@ const gameController = function () {
   }
 
   const getBoard = board.getBoard;
+  const getCurrentPlayerName = () => {
+    return playerNames[currentPlayer];
+  };
 
   return {
     playRound,
@@ -165,6 +168,7 @@ const gameController = function () {
     restartGame,
     getBoard,
     setPlayerName,
+    getCurrentPlayerName,
   };
 };
 
@@ -174,6 +178,8 @@ const displayController = (function () {
   const restartMessage = document.querySelector(".restart-message");
   const alwaysRestartButton = document.querySelector(".always-restart-button");
 
+  const currentPlayerInfo = document.querySelector(".current-player-info");
+
   // Add the correct symbol to the correct position in the array
   // based on which square is clicked and whose turn it is
   gameSlots.forEach((gameSlot) => {
@@ -182,6 +188,8 @@ const displayController = (function () {
       const column = gameSlot.getAttribute("data-column");
       game.playRound(row, column);
       displayGameBoard();
+      currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
+
       endGame();
     });
   });
@@ -273,5 +281,6 @@ const displayController = (function () {
       const player2Name = document.querySelector("#player-2-name").value;
       game.setPlayerName(player1Name, "player1");
       game.setPlayerName(player2Name, "player2");
+      currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
     });
 })();
