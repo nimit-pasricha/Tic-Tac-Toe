@@ -241,13 +241,17 @@ const displayController = (function () {
       }
     });
 
+  const playerInfo = document.querySelector(".player-info");
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".player-info").showModal();
+    playerInfo.showModal();
   });
 
-  document
-    .querySelector(".player-info")
-    .addEventListener("keydown", (event) => {
-      if (event.key === "Escape") event.preventDefault();
-    });
+  playerInfo.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") event.preventDefault();
+  });
+
+  document.querySelector(".subit-button").addEventListener("click", (event) => {
+    event.preventDefault();
+    playerInfo.close();
+  });
 })();
