@@ -161,6 +161,7 @@ const displayController = (function () {
   const game = gameController();
   const gameSlots = document.querySelectorAll(".game-slot");
   const restartMessage = document.querySelector(".restart-message");
+  const alwaysRestartButton = document.querySelector(".always-restart-button");
 
   // Add the correct symbol to the correct position in the array
   // based on which square is clicked and whose turn it is
@@ -194,6 +195,7 @@ const displayController = (function () {
   }
 
   function clearBoardDisplay() {
+    alwaysRestartButton.style.visibility = "visible";
     restartMessage.textContent = "";
     gameSlots.forEach((gameSlot) => {
       gameSlot.textContent = "";
@@ -209,8 +211,16 @@ const displayController = (function () {
     }
   }
 
+  document
+    .querySelector(".always-restart-button")
+    .addEventListener("click", () => {
+      game.restartGame();
+      clearBoardDisplay();
+    });
+
   document.querySelector(".restart-button").addEventListener("click", () => {
     document.querySelector("dialog").close();
+    game.restartGame();
     clearBoardDisplay();
   });
 
@@ -219,15 +229,13 @@ const displayController = (function () {
     .addEventListener("click", () => {
       document.querySelector("dialog").close();
       restartMessage.textContent = "Click any slot to restart";
+      alwaysRestartButton.style.visibility = "hidden";
     });
 
   document.querySelector("dialog").addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       restartMessage.textContent = "Click any slot to restart";
+      alwaysRestartButton.style.visibility = "hidden";
     }
   });
-
-  // TODO: RECREATE THIS ERROR
-  // CREATE AN X, CLICK ON THIS X.
-  // now, click on a different square and it creates a new X instead of O
 })();
