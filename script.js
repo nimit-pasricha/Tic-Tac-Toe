@@ -96,12 +96,13 @@ const gameController = function () {
     currentPlayer = currentPlayer === "player1" ? "player2" : "player1";
   }
 
-  const allEqual = (arr) => arr.every((v) => v === arr[0]);
-
   // check for winning conditions
   // returns nothing (undefined) if no one has won yet
   function checkForVictory() {
+    // check for tie
+
     const currentBoard = board.getBoard();
+    const allEqual = (arr) => arr.every((element) => element === arr[0]);
 
     // check if any row has three consecutive symbols
     for (let i of currentBoard) {
@@ -137,6 +138,11 @@ const gameController = function () {
     ) {
       if (currentBoard[0][2] === "X") return "Player 1 Wins";
       if (currentBoard[0][2] === "O") return "Player 2 Wins";
+    }
+
+    // check for tie
+    if (currentBoard.every((row) => row.every((element) => element !== "-"))) {
+      return "It's a tie!";
     }
   }
 
