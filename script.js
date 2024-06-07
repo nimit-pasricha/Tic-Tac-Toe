@@ -175,9 +175,6 @@ const gameController = function () {
 const displayController = (function () {
   const game = gameController();
   const gameSlots = document.querySelectorAll(".game-slot");
-  const restartMessage = document.querySelector(".restart-message");
-  const alwaysRestartButton = document.querySelector(".always-restart-button");
-
   const currentPlayerInfo = document.querySelector(".current-player-info");
 
   // Add the correct symbol to the correct position in the array
@@ -217,7 +214,6 @@ const displayController = (function () {
   function clearBoardDisplay() {
     currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
 
-    restartMessage.textContent = "";
     gameSlots.forEach((gameSlot) => {
       gameSlot.textContent = "";
     });
