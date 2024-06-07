@@ -75,8 +75,8 @@ const gameController = function () {
   };
 
   const playerNames = {
-    player1: null,
-    player2: null,
+    player1: "Player 1",
+    player2: "Player 2",
   };
 
   // set names bruh
@@ -117,8 +117,8 @@ const gameController = function () {
     // check if any row has three consecutive symbols
     for (let i of currentBoard) {
       if (allEqual(i)) {
-        if (i[0] === "X") return `${playerNames.player1} Wins`;
-        else if (i[0] === "O") return `${playerNames.player2} Wins`;
+        if (i[0] === "X") return `${playerNames.player1} wins`;
+        else if (i[0] === "O") return `${playerNames.player2} wins`;
       }
     }
 
@@ -128,8 +128,8 @@ const gameController = function () {
         currentBoard[0][i] === currentBoard[1][i] &&
         currentBoard[1][i] === currentBoard[2][i]
       ) {
-        if (currentBoard[0][i] === "X") return `${playerNames.player1} Wins`;
-        if (currentBoard[0][i] === "O") return `${playerNames.player2} Wins`;
+        if (currentBoard[0][i] === "X") return `${playerNames.player1} wins`;
+        if (currentBoard[0][i] === "O") return `${playerNames.player2} wins`;
       }
     }
 
@@ -138,16 +138,16 @@ const gameController = function () {
       currentBoard[0][0] === currentBoard[1][1] &&
       currentBoard[1][1] === currentBoard[2][2]
     ) {
-      if (currentBoard[0][0] === "X") return `${playerNames.player1} Wins`;
-      if (currentBoard[0][0] === "O") return `${playerNames.player2} Wins`;
+      if (currentBoard[0][0] === "X") return `${playerNames.player1} wins`;
+      if (currentBoard[0][0] === "O") return `${playerNames.player2} wins`;
     }
 
     if (
       currentBoard[0][2] === currentBoard[1][1] &&
       currentBoard[1][1] === currentBoard[2][0]
     ) {
-      if (currentBoard[0][2] === "X") return `${playerNames.player1} Wins`;
-      if (currentBoard[0][2] === "O") return `${playerNames.player2} Wins`;
+      if (currentBoard[0][2] === "X") return `${playerNames.player1} wins`;
+      if (currentBoard[0][2] === "O") return `${playerNames.player2} wins`;
     }
 
     // check for tie
@@ -184,13 +184,14 @@ const displayController = (function () {
   // based on which square is clicked and whose turn it is
   gameSlots.forEach((gameSlot) => {
     gameSlot.addEventListener("click", () => {
-      const row = gameSlot.getAttribute("data-row");
-      const column = gameSlot.getAttribute("data-column");
-      game.playRound(row, column);
-      displayGameBoard();
-      currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
-
-      endGame();
+      if (game.checkForVictory() === undefined) {
+        const row = gameSlot.getAttribute("data-row");
+        const column = gameSlot.getAttribute("data-column");
+        game.playRound(row, column);
+        displayGameBoard();
+        currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
+        endGame();
+      }
     });
   });
 
@@ -214,8 +215,8 @@ const displayController = (function () {
   }
 
   function clearBoardDisplay() {
-    alwaysRestartButton.style.visibility = "visible";
-    alwaysRestartButton.style.position = "static";
+    currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
+
     restartMessage.textContent = "";
     gameSlots.forEach((gameSlot) => {
       gameSlot.textContent = "";
@@ -227,7 +228,6 @@ const displayController = (function () {
       const winner = game.checkForVictory();
       document.querySelector(".game-end-message").showModal();
       document.querySelector(".victory-message").textContent = winner;
-      game.restartGame();
     }
   }
 
@@ -248,19 +248,6 @@ const displayController = (function () {
     .querySelector(".close-dialog-button")
     .addEventListener("click", () => {
       document.querySelector(".game-end-message").close();
-      restartMessage.textContent = "Click any slot to restart";
-      alwaysRestartButton.style.visibility = "hidden";
-      alwaysRestartButton.style.position = "absolute";
-    });
-
-  document
-    .querySelector(".game-end-message")
-    .addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        restartMessage.textContent = "Click any slot to restart";
-        alwaysRestartButton.style.visibility = "hidden";
-        alwaysRestartButton.style.position = "absolute";
-      }
     });
 
   const playerInfo = document.querySelector(".player-info");
@@ -279,8 +266,13 @@ const displayController = (function () {
       playerInfo.close();
       const player1Name = document.querySelector("#player-1-name").value;
       const player2Name = document.querySelector("#player-2-name").value;
-      game.setPlayerName(player1Name, "player1");
-      game.setPlayerName(player2Name, "player2");
+      if (player1Name) {
+        game.setPlayerName(player1Name, "player1");
+      }
+      if (player2Name) {
+        game.setPlayerName(player2Name, "player2");
+      }
+      console.log(game.getCurrentPlayerName());
       currentPlayerInfo.textContent = `${game.getCurrentPlayerName()}'s turn`;
     });
 })();
