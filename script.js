@@ -62,7 +62,6 @@ const gameBoard = function GameBoard() {
     board,
     getBoard,
     placeMarker,
-    printBoard,
     createNewBoard,
     canPlaceMarker,
   };
@@ -96,8 +95,6 @@ const gameController = function () {
     if (checkForVictory !== undefined && board.canPlaceMarker(row, column)) {
       const markerToPlace = playerTokens[currentPlayer];
       board.placeMarker(row, column, markerToPlace);
-      board.printBoard();
-      console.log(checkForVictory());
       switchPlayerTurn();
     }
   };

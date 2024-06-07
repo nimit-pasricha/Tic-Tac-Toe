@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -9,10 +13,6 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   display: flex;
   flex-direction: column;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .container {
@@ -67,6 +67,15 @@ h1 {
   border-bottom: none;
 }
 
+dialog {
+  border-radius: 8px;
+}
+
+.player-info {
+  width: 100%;
+  height: 100%;
+}
+
 form {
   padding: 16px;
   display: flex;
@@ -77,38 +86,12 @@ form {
   gap: 64px;
 }
 
-dialog {
-  border-radius: 8px;
-}
-
 .form-field {
   display: flex;
   gap: 16px;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-}
-
-.player-info {
-  width: 100%;
-  height: 100%;
-}
-
-.game-end-message,
-.player-info {
-  background-color: #fb7185;
-  color: #fff1f2;
-}
-
-.game-end-container {
-  padding: 16px;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: 64px;
-  font-size: 2.4rem;
-  font-weight: 700;
 }
 
 input {
@@ -125,6 +108,21 @@ legend {
   font-weight: 700;
 }
 
+::placeholder {
+  color: #fb7185;
+}
+
+.inputs {
+  display: flex;
+  gap: 64px;
+}
+
+.game-end-message,
+.player-info {
+  background-color: #fb7185;
+  color: #fff1f2;
+}
+
 button {
   padding: 16px 72px;
   font-size: 1.4rem;
@@ -135,10 +133,15 @@ button {
   font-weight: 600;
 }
 
-input:focus,
-button:focus {
-  outline: solid #9f1239;
-  border: solid #9f1239;
+.game-end-container {
+  padding: 16px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 64px;
+  font-size: 2.4rem;
+  font-weight: 700;
 }
 
 input,
@@ -146,15 +149,8 @@ button {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-label {
-  font-weight: 600;
-}
-
-::placeholder {
-  color: #fb7185;
-}
-
-.inputs {
-  display: flex;
-  gap: 64px;
+input:focus,
+button:focus {
+  outline: solid #9f1239;
+  border: solid #9f1239;
 }
