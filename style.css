@@ -96,3 +96,14 @@ legend {
   border-radius: 16px;
   font-weight: 500;
 }
+
+input:focus,
+.submit-button:focus {
+  outline: solid #be185d 2px;
+  border: solid #be185d;
+}
+
+input,
+.submit-button {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
