@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <dialog class="player-info">
+      <form action="" method="dialog">
+        <legend>Enter Player Names!</legend>
+        <div class="form-field">
+          <label for="player-1-name">Player 1</label>
+          <input type="text" id="player-1-name" />
+        </div>
+        <div class="form-field">
+          <label for="player-2-name">Player 2</label>
+          <input type="text" id="player-2-name" />
+        </div>
+        <button type="submit" class="submit-button">Play</button>
+      </form>
+    </dialog>
     <div class="game-board">
       <div class="game-slot top left" data-row="0" data-column="0"></div>
       <div class="game-slot top" data-row="0" data-column="1"></div>
@@ -18,7 +32,7 @@
       <div class="game-slot bottom" data-row="2" data-column="1"></div>
       <div class="game-slot bottom right" data-row="2" data-column="2"></div>
     </div>
-    <dialog>
+    <dialog class="game-end-message">
       <div class="victory-message"></div>
       <div class="buttons">
         <button class="restart-button">Restart</button>

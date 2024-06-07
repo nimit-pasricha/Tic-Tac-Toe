@@ -205,11 +205,15 @@ const displayController = (function () {
   function endGame() {
     if (game.checkForVictory() !== undefined) {
       const winner = game.checkForVictory();
-      document.querySelector("dialog").showModal();
+      document.querySelector(".game-end-message").showModal();
       document.querySelector(".victory-message").textContent = winner;
       game.restartGame();
     }
   }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".player-info").showModal();
+  });
 
   document
     .querySelector(".always-restart-button")
@@ -219,7 +223,7 @@ const displayController = (function () {
     });
 
   document.querySelector(".restart-button").addEventListener("click", () => {
-    document.querySelector("dialog").close();
+    document.querySelector(".game-end-message").close();
     game.restartGame();
     clearBoardDisplay();
   });
@@ -227,15 +231,23 @@ const displayController = (function () {
   document
     .querySelector(".close-dialog-button")
     .addEventListener("click", () => {
-      document.querySelector("dialog").close();
+      document.querySelector(".game-end-message").close();
       restartMessage.textContent = "Click any slot to restart";
       alwaysRestartButton.style.visibility = "hidden";
     });
 
-  document.querySelector("dialog").addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      restartMessage.textContent = "Click any slot to restart";
-      alwaysRestartButton.style.visibility = "hidden";
-    }
-  });
+  document
+    .querySelector(".game-end-message")
+    .addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        restartMessage.textContent = "Click any slot to restart";
+        alwaysRestartButton.style.visibility = "hidden";
+      }
+    });
+
+  document
+    .querySelector(".player-info")
+    .addEventListener("keydown", (event) => {
+      if (event.key === "Escape") event.preventDefault();
+    });
 })();
