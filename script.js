@@ -211,10 +211,6 @@ const displayController = (function () {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".player-info").showModal();
-  });
-
   document
     .querySelector(".always-restart-button")
     .addEventListener("click", () => {
@@ -244,6 +240,10 @@ const displayController = (function () {
         alwaysRestartButton.style.visibility = "hidden";
       }
     });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".player-info").showModal();
+  });
 
   document
     .querySelector(".player-info")
