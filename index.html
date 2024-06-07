@@ -19,11 +19,15 @@
                 type="text"
                 id="player-1-name"
                 autofocus
-                placeholder="Player 1"
+                placeholder="Player 1 (X)"
               />
             </div>
             <div class="form-field">
-              <input type="text" id="player-2-name" placeholder="Player 2" />
+              <input
+                type="text"
+                id="player-2-name"
+                placeholder="Player 2 (O)"
+              />
             </div>
           </div>
           <button type="submit" class="submit-button">Play</button>
@@ -41,10 +45,12 @@
         <div class="game-slot bottom right" data-row="2" data-column="2"></div>
       </div>
       <dialog class="game-end-message">
-        <div class="victory-message"></div>
-        <div class="buttons">
-          <button class="restart-button">Play Again</button>
-          <button class="close-dialog-button">See Board</button>
+        <div class="game-end-container">
+          <div class="victory-message"></div>
+          <div class="buttons">
+            <button class="restart-button">Play Again</button>
+            <button class="close-dialog-button">See Board</button>
+          </div>
         </div>
       </dialog>
       <button class="always-restart-button">Reset</button>
