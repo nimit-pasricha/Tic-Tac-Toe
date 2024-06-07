@@ -11,6 +11,10 @@ body {
   flex-direction: column;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .container {
   flex-grow: 1;
   display: flex;
@@ -125,4 +129,13 @@ input,
 
 label {
   font-weight: 600;
+}
+
+::placeholder {
+  color: #fb7185;
+}
+
+.inputs {
+  display: flex;
+  gap: 64px;
 }
