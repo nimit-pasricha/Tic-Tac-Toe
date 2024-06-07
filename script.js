@@ -23,10 +23,14 @@ const gameBoard = function GameBoard() {
 
   const getBoard = () => board;
 
+  const canPlaceMarker = (row, column) => {
+    return board[row][column] === "-";
+  };
+
   const placeMarker = (row, column, token) => {
     // condition to prevent user from selecting
     // an already-selected slot
-    if (board[row][column] === "-") {
+    if (canPlaceMarker(row, column)) {
       board[row][column] = token;
     }
   };
@@ -54,7 +58,14 @@ const gameBoard = function GameBoard() {
     );
   };
 
-  return { board, getBoard, placeMarker, printBoard, createNewBoard };
+  return {
+    board,
+    getBoard,
+    placeMarker,
+    printBoard,
+    createNewBoard,
+    canPlaceMarker,
+  };
 };
 
 const gameController = function () {
@@ -72,7 +83,7 @@ const gameController = function () {
   };
 
   const playRound = (row, column) => {
-    if (checkForVictory !== undefined) {
+    if (checkForVictory !== undefined && board.canPlaceMarker(row, column)) {
       const markerToPlace = playerTokens[currentPlayer];
       board.placeMarker(row, column, markerToPlace);
       board.printBoard();
@@ -131,7 +142,13 @@ const gameController = function () {
 
   const getBoard = board.getBoard;
 
-  return { playRound, checkForVictory, getBoard, restartGame };
+  return {
+    playRound,
+    checkForVictory,
+    getBoard,
+    restartGame,
+    getBoard,
+  };
 };
 
 const displayController = (function () {
@@ -195,7 +212,7 @@ const displayController = (function () {
     .querySelector(".close-dialog-button")
     .addEventListener("click", () => {
       document.querySelector("dialog").close();
-      restartMessage.textContent = "Click any square to restart";
+      restartMessage.textContent = "Click any slot to restart";
     });
 
   // TODO: RECREATE THIS ERROR
