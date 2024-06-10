@@ -28,14 +28,21 @@ body {
 }
 
 h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #fff1f2;
   margin: 0;
   padding: 24px;
   color: #9f1239;
+  flex: 1 1 0;
 }
 
 .game-board {
+  flex: 1 1 auto;
   display: grid;
+  justify-content: center;
+  align-content: center;
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(3, 200px);
 }
